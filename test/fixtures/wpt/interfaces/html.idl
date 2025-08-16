@@ -951,7 +951,7 @@ interface HTMLInputElement : HTMLElement {
 
   // also has obsolete members
 };
-HTMLInputElement includes PopoverInvokerElement;
+HTMLInputElement includes ElementPopover;
 
 [Exposed=Window]
 interface HTMLButtonElement : HTMLElement {
@@ -979,7 +979,7 @@ interface HTMLButtonElement : HTMLElement {
 
   readonly attribute NodeList labels;
 };
-HTMLButtonElement includes PopoverInvokerElement;
+HTMLButtonElement includes ElementPopover;
 
 [Exposed=Window]
 interface HTMLSelectElement : HTMLElement {
@@ -1235,17 +1235,18 @@ interface HTMLDialogElement : HTMLElement {
 interface HTMLScriptElement : HTMLElement {
   [HTMLConstructor] constructor();
 
-  [CEReactions] attribute USVString src;
   [CEReactions] attribute DOMString type;
+  [CEReactions] attribute USVString src;
   [CEReactions] attribute boolean noModule;
   [CEReactions] attribute boolean async;
   [CEReactions] attribute boolean defer;
-  [CEReactions] attribute DOMString? crossOrigin;
-  [CEReactions] attribute DOMString text;
-  [CEReactions] attribute DOMString integrity;
-  [CEReactions] attribute DOMString referrerPolicy;
   [SameObject, PutForwards=value] readonly attribute DOMTokenList blocking;
+  [CEReactions] attribute DOMString? crossOrigin;
+  [CEReactions] attribute DOMString referrerPolicy;
+  [CEReactions] attribute DOMString integrity;
   [CEReactions] attribute DOMString fetchPriority;
+
+  [CEReactions] attribute DOMString text;
 
   static boolean supports(DOMString type);
 
@@ -1694,6 +1695,7 @@ interface ToggleEvent : Event {
   constructor(DOMString type, optional ToggleEventInit eventInitDict = {});
   readonly attribute DOMString oldState;
   readonly attribute DOMString newState;
+  readonly attribute Element? source;
 };
 
 dictionary ToggleEventInit : EventInit {
@@ -1791,7 +1793,7 @@ dictionary DragEventInit : MouseEventInit {
   DataTransfer? dataTransfer = null;
 };
 
-interface mixin PopoverInvokerElement {
+interface mixin ElementPopover {
   [CEReactions] attribute Element? popoverTargetElement;
   [CEReactions] attribute DOMString popoverTargetAction;
 };
