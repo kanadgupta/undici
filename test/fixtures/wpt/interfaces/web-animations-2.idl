@@ -116,22 +116,26 @@ dictionary AnimationPlaybackEventInit : EventInit {
 
 [Exposed=Window]
 interface AnimationTrigger {
-  constructor(optional AnimationTriggerOptions options = {});
-  attribute AnimationTimeline timeline;
-  attribute AnimationTriggerType type;
-  attribute any rangeStart;
-  attribute any rangeEnd;
-  attribute any exitRangeStart;
-  attribute any exitRangeEnd;
+  readonly attribute AnimationTriggerBehavior behavior;
 };
 
-dictionary AnimationTriggerOptions {
+[Exposed=Window]
+interface TimelineTrigger : AnimationTrigger {
+  constructor(optional TimelineTriggerOptions options = {});
+  readonly attribute AnimationTimeline timeline;
+  readonly attribute any rangeStart;
+  readonly attribute any rangeEnd;
+  readonly attribute any exitRangeStart;
+  readonly attribute any exitRangeEnd;
+};
+
+dictionary TimelineTriggerOptions {
   AnimationTimeline? timeline;
-  AnimationTriggerType? type = "once";
+  AnimationTriggerBehavior? behavior = "once";
   (TimelineRangeOffset or CSSNumericValue or CSSKeywordValue or DOMString) rangeStart = "normal";
   (TimelineRangeOffset or CSSNumericValue or CSSKeywordValue or DOMString) rangeEnd = "normal";
   (TimelineRangeOffset or CSSNumericValue or CSSKeywordValue or DOMString) exitRangeStart = "auto";
   (TimelineRangeOffset or CSSNumericValue or CSSKeywordValue or DOMString) exitRangeEnd = "auto";
 };
 
-enum AnimationTriggerType { "once", "repeat", "alternate", "state" };
+enum AnimationTriggerBehavior { "once", "repeat", "alternate", "state" };
